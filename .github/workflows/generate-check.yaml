@@ -10,6 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -18,16 +24,7 @@ jobs:
             libdbus-1-dev \
             libssl-dev \
             libxkbcommon-dev
-          cargo install cargo-binstall
-
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-
-      - name: Install cargo-generate
-        run: cargo binstall cargo-generate
+          cargo install cargo-generate
 
       - name: Prepare custom folder
         run: mkdir ${{ github.workspace }}/../ci-test
@@ -49,4 +46,4 @@ jobs:
 
       - name: Run cargo check with custom manifest
         working-directory: ${{ github.workspace }}/../ci-test/example-applet
-        run: cargo clippy --all-features -- -W clippy::pedantic
+        run: cargo clippy --all-features
