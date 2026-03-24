@@ -125,7 +125,7 @@ impl cosmic::Application for AppModel {
 
         Subscription::batch(vec![
             // Create a subscription which emits updates through a channel.
-            Subscription::run_with_id(std::any::TypeId::of::<MySubscription>(), |_| {
+            Subscription::run_with(std::any::TypeId::of::<MySubscription>(), |_| {
                 cosmic::iced::stream::channel(4, move |mut channel: Sender<Message>| async move {
                     _ = channel.send(Message::SubscriptionChannel).await;
 

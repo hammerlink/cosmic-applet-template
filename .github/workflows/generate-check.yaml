@@ -40,10 +40,10 @@ jobs:
             --define repository-url="https://github.com/pop-os/cosmic-app-template"
         working-directory: ${{ github.workspace }}/../ci-test
 
-      - name: Run cargo check with custom manifest
+      - name: Run cargo check
         working-directory: ${{ github.workspace }}/../ci-test/example-applet
         run: cargo check
 
-      - name: Run cargo check with custom manifest
+      - name: Run cargo clippy
         working-directory: ${{ github.workspace }}/../ci-test/example-applet
         run: cargo clippy --all-features
